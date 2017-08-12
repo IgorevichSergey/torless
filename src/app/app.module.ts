@@ -15,28 +15,36 @@ import { AppRoutingModule } from './app-routing.module';
 // PAGES MODULES
 import { LoginModule } from './login/login.module';
 import { RegisterModule } from './register/register.module';
+import { SmsConfirmModule } from './sms-confirm/sms-confirm.module';
+import { CreateBranchModule } from './create-branch/create-branch.module';
+import { BranchActivityModule } from './branch-activity/branch-activity.module';
+import { CafeteriaDetailsModule } from './cafeteria-details/cafeteria-details.module';
 
 
 // COMPONENTS
-import { PathComponent, InformationComponent } from './components';
+import { ComponentsModule  } from './components';
 
 // SERVICES
 import { LoginService, RegistrationService } from './services';
-
+import {DirectivesModule} from "./directives/index";
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    PathComponent,
-    InformationComponent
+    AppComponent
   ],
   imports: [
+    BrowserModule,
     RouterModule,
     AppRoutingModule,
     LoginModule,
     RegisterModule,
-    BrowserModule,
+    SmsConfirmModule,
+    CreateBranchModule,
+    BranchActivityModule,
+    CafeteriaDetailsModule,
+    ComponentsModule,
+    DirectivesModule,
     HttpModule
   ],
   providers: [
