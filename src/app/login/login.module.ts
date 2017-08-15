@@ -8,6 +8,8 @@ import { LoginComponent } from './login.component';
 
 import { DirectivesModule } from '../directives';
 
+// import { DndModule } from 'ng2-dnd';
+
 
 
 
@@ -16,7 +18,8 @@ import { DirectivesModule } from '../directives';
     CommonModule,
     LoginRoutingModule,
     FormsModule,
-    DirectivesModule
+    DirectivesModule,
+    // DndModule.forRoot()
   ],
   declarations: [
     LoginComponent

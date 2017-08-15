@@ -1,0 +1,93 @@
+<div class="cafeteria-details-component">
+  <div class="component-title">
+    הקמת סניף
+  </div>
+  <app-progress-bar [complete]="complete"></app-progress-bar>
+
+
+  <div class="component-content">
+    <div class="left-side-form">
+      test
+    </div>
+
+    <div class="cafeteria-details-form">
+      <!--cafeteria details-->
+      <div class="form-label">
+        פרטי הקפיטריה
+      </div>
+
+      <div class="input-line required">
+        <input type="text" appInput [placeholderMessage]="'שם חברה'">
+      </div>
+
+      <div class="select-line required">
+        <select>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
+      </div>
+
+      <div class="select-line required">
+        <select>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
+      </div>
+
+      <div class="select-line required">
+        <select>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
+      </div>
+
+      <div class="radio-line">
+        <div class="radio-button-element">
+          <span class="button-description">
+            יש מנות צמחוניות
+          </span>
+          <input type="radio">
+        </div>
+
+        <div class="radio-button-element">
+          <span class="button-description">
+            יש מנות צמחוניות
+          </span>
+          <input type="radio">
+        </div>
+      </div>
+
+      <div class="days-of-branch-activity">
+        <div class="label">
+          ימי פעילות הסניף
+        </div>
+        <div class="days required-top">
+          <div class="day" (click)="selectDay($event)">א</div>
+          <div class="day" (click)="selectDay($event)">ב</div>
+          <div class="day" (click)="selectDay($event)">ג</div>
+          <div class="day" (click)="selectDay($event)">ד</div>
+          <div class="day" (click)="selectDay($event)">ה</div>
+          <div class="day" (click)="selectDay($event)">ו</div>
+          <div class="day" (click)="selectDay($event)">ש</div>
+        </div>
+      </div>
+
+      <div class="submit-block">
+        <div class="submit-button-container">
+          <button>הרשם/י</button>
+          <div class="repeat-button">
+            <span>      חזור/י</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

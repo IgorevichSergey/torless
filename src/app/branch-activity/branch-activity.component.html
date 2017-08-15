@@ -1,0 +1,42 @@
+<div class="branch-activity-component">
+  <div class="component-title">
+    הקמת סניף
+  </div>
+  <app-progress-bar [complete]="complete"></app-progress-bar>
+
+  <div class="activity-types-block">
+    <!-- cafeteria -->
+    <div class="activity-block" (click)="selectElement('cafeteria')" [ngClass]="{'checked': checkedElement === 'cafeteria'}">
+      <div class="text">
+        קפיטריה
+      </div>
+    </div>
+    <!-- salad-bar -->
+    <div class="activity-block" (click)="selectElement('saladBar')" [ngClass]="{'checked': checkedElement === 'saladBar'}">
+      <div class="text">
+        סלט-בר
+      </div>
+    </div>
+    <!-- manza -->
+    <div class="activity-block" (click)="selectElement('manza')" [ngClass]="{'checked': checkedElement === 'manza'}">
+      <div class="text">
+        מנזה
+      </div>
+    </div>
+  </div>
+
+  <div class="duplication-options" *ngIf="checkedElement">
+    <select>
+      <option disabled>שכפל/י סניף קיים</option>
+      <option>קפיטריה סוהו, מכללת ספיר, בנין 22</option>
+      <option>קפיטריה סוהו, מכללת ספיר, בנין 22</option>
+      <option>קפיטריה סוהו, מכללת ספיר, בנין 22</option>
+    </select>
+  </div>
+
+  <div class="button-container">
+    <button [disabled]="!checkedElement">
+      שמור/י והמשך/י
+    </button>
+  </div>
+</div>

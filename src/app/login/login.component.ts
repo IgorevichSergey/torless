@@ -3,7 +3,7 @@ import {NavigationExtras, Router} from '@angular/router';
 
 import { LoginUser } from '../customClasses';
 
-import { LoginService } from '../services/login/login.service';
+import { UserService } from '../services';
 
 
 @Component({
@@ -12,21 +12,25 @@ import { LoginService } from '../services/login/login.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public user: LoginUser = new LoginUser();
+  public user: LoginUser = new LoginUser('sergiosy@sergiosy.com', '111111');
   public loginError: boolean = false;
 
+  // listOne: Array<string> = ['Coffee', 'Orange Juice', 'Red Wine', 'Unhealty drink!', 'Water'];
+
+
   constructor(
-    private loginService: LoginService,
+    private userService: UserService,
     private router: Router
   ) {}
 
   ngOnInit() {}
 
   public login(user: LoginUser): void {
-    this.loginService.login(user).then((data) => {
+    this.userService.login(user).then((data) => {
+      console.log('success', data)
       this.loginError = false;
-      console.log('data', data);
     }, (reject) => {
+      console.log('rejected', reject)
       this.loginError = true;
     });
   }

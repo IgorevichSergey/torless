@@ -14,6 +14,8 @@ export class InputDirective implements AfterViewInit, OnChanges {
   @Input('error') error: boolean;
   @Input('invalid') invalid: boolean;
 
+  @Input('ngModel') ngModel: any;
+
 
   private _placeholderElement: any;
   private _errorElement: any;
@@ -22,7 +24,9 @@ export class InputDirective implements AfterViewInit, OnChanges {
   constructor(
     private renderer: Renderer,
     private elementRef: ElementRef
-  ) { }
+  ) {
+
+  }
 
   ngOnChanges(values) {
     if(values && values.error && values.error.currentValue) {
@@ -37,6 +41,9 @@ export class InputDirective implements AfterViewInit, OnChanges {
     this._placeholderElement = this.renderer.createElement(this.elementRef.nativeElement.parentNode, 'div');
     this._placeholderElement.innerHTML = this.placeholderMessage;
     this.renderer.setElementClass(this._placeholderElement, 'app-input-placeholder', true);
+    if(this.ngModel) {
+      this.renderer.setElementClass(this._placeholderElement, 'focused', true);
+    }
   }
 
   @HostListener('focus') onFocus() {

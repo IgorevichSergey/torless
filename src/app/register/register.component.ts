@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RegistrationService } from '../services';
+import { UserService } from '../services';
 
 import { CreatedUser } from '../customClasses';
 
@@ -13,15 +13,13 @@ export class RegisterComponent implements OnInit {
   public registrationError: boolean = false;
 
   constructor(
-    private registrationService: RegistrationService
+    private userService: UserService
   ) { }
 
-  ngOnInit() {
-    console.log('registrationService', this.registrationService)
-  }
+  ngOnInit() {}
 
   registerUser(createdUser: CreatedUser): void {
-    this.registrationService.registerUser(createdUser).then((response) => {
+    this.userService.registration(createdUser).then((response) => {
       this.registrationError = false;
       console.log('response', response);
       // todo: go to next page

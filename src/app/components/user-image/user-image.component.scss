@@ -7,12 +7,14 @@
   text-align: right;
 
   .user-description {
-    padding: 10px;
+    padding: 5px 10px;
     font-size: 0.9rem;
     font-weight: 900;
   }
   img {
-    width: 65px;
-    height: 65px;
+    width: 100%;
+    height: auto;
+    max-width: 45px;
+    max-height: 45px;
   }
 }

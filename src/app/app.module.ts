@@ -2,8 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
-
-
 import 'hammerjs';
 
 // MAIN COMPONENT
@@ -20,13 +18,14 @@ import { CreateBranchModule } from './create-branch/create-branch.module';
 import { BranchActivityModule } from './branch-activity/branch-activity.module';
 import { CafeteriaDetailsModule } from './cafeteria-details/cafeteria-details.module';
 
-
 // COMPONENTS
 import { ComponentsModule  } from './components';
 
 // SERVICES
-import { LoginService, RegistrationService } from './services';
-import {DirectivesModule} from "./directives/index";
+import { ProductService, CategoryService, CafeteriaService, UserService, UniversityService } from './services';
+
+// DIRECTIVES
+import { DirectivesModule } from './directives/index';
 
 
 @NgModule({
@@ -48,8 +47,11 @@ import {DirectivesModule} from "./directives/index";
     HttpModule
   ],
   providers: [
-    LoginService,
-    RegistrationService
+    ProductService,
+    CategoryService,
+    CafeteriaService,
+    UserService,
+    UniversityService
   ],
   bootstrap: [AppComponent]
 })
