@@ -2,7 +2,7 @@
   position: relative;
   height: 2px;
   background: #c8c8c8;
-  max-width: 350px;
+  width: calc(100% - 6px);
   margin-left: auto;
   margin-bottom: 40px;
   .background-container {

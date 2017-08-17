@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { environment } from '../../../environments/environment';
 
-import { CreatedCafeteria, CreatedMainCategoryClass, CreatedMainProduct } from '../../customClasses';
+import { CreatedMainProduct } from '../../custom-classes';
 
 @Injectable()
 export class ProductService {
@@ -19,7 +19,13 @@ export class ProductService {
     const token: string = localStorage.getItem('torless_token');
     const data: string = JSON.stringify({tag: 'create_main_product', token: token, pr_caf_id: createdMainProduct.pr_caf_id, pr_cat_id:  createdMainProduct.pr_cat_id, product: createdMainProduct.product, extra_categories: createdMainProduct.extra_categories});
 
-    return this._setRequest(data);
+    return new Promise((resolve, reject) => {
+      this._setRequest(data).then((response) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
+    });
 
   }
 
@@ -27,7 +33,13 @@ export class ProductService {
     const token: string = localStorage.getItem('torless_token');
     const data: string = JSON.stringify({ tag: 'get_products_for_category', token: token, gcp_caf_id: cafeteriaId, gcp_cat_id: categoryId});
 
-    return this._setRequest(data);
+    return new Promise((resolve, reject) => {
+      this._setRequest(data).then((response) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
+    });
 
   }
 
@@ -35,7 +47,13 @@ export class ProductService {
     const token: string = localStorage.getItem('torless_token');
     const data: string = JSON.stringify({tag: 'get_product_by_id', token: token, prod_id: productId});
 
-    return this._setRequest(data);
+    return new Promise((resolve, reject) => {
+      this._setRequest(data).then((response) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
+    });
   }
 
   /////
@@ -46,7 +64,11 @@ export class ProductService {
       this.http.post(this._host, body.toString(), { headers: this._headers })
         .map(response => response.json())
         .subscribe((response) => {
-          resolve(response);
+          if (response.success) {
+            resolve(response);
+          } else {
+            reject(response);
+          }
         }, (error) => {
           reject(error);
         });

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { environment } from '../../../environments/environment';
 
-import { CreatedCafeteria, UpdatedCafeteria, CreatedMainProduct } from '../../customClasses';
+import { CreatedCafeteria, UpdatedCafeteria, CreatedMainProduct } from '../../custom-classes';
 
 @Injectable()
 export class CafeteriaService {
@@ -19,10 +19,12 @@ export class CafeteriaService {
     const token: string = localStorage.getItem('torless_token');
     const data: string = JSON.stringify({tag: 'create_cafeteria', 'token': token, cafeteria: createdCafeteria.cafeteria, work_time: createdCafeteria.work_time});
 
-    return this._setRequest(data).then((response) => {
-      return response;
-    }, (error) => {
-      return error;
+    return new Promise((resolve, reject) => {
+      this._setRequest(data).then((response) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
     });
 
   }
@@ -33,10 +35,12 @@ export class CafeteriaService {
     const token: string = localStorage.getItem('torless_token');
     const data: string = JSON.stringify({tag: 'get_user_cafeterias', token: token});
 
-    return this._setRequest(data).then((response) => {
-      return response;
-    }, (error) => {
-      return error;
+    return new Promise((resolve, reject) => {
+      this._setRequest(data).then((response) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
     });
 
   }
@@ -45,10 +49,12 @@ export class CafeteriaService {
     const token: string = localStorage.getItem('torless_token');
     const data: string = JSON.stringify({tag: 'get_cafeteria_by_id', token: token, g_caf_id: cafeteriaId});
 
-    return this._setRequest(data).then((response) => {
-      return response;
-    }, (error) => {
-      return error;
+    return new Promise((resolve, reject) => {
+      this._setRequest(data).then((response) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
     });
 
   }
@@ -57,10 +63,12 @@ export class CafeteriaService {
     const token: string = localStorage.getItem('torless_token');
     const data: string = JSON.stringify({tag: 'update_cafeteria', token: token, cafeteria: updatedCafeteria.cafeteria, work_time: updatedCafeteria.work_time});
 
-    return this._setRequest(data).then((response) => {
-      return response;
-    }, (error) => {
-      return error;
+    return new Promise((resolve, reject) => {
+      this._setRequest(data).then((response) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
     });
   }
 
@@ -73,7 +81,11 @@ export class CafeteriaService {
       this.http.post(this._host, body.toString(), { headers: this._headers })
         .map(response => response.json())
         .subscribe((response) => {
-          resolve(response);
+          if (response.success) {
+            resolve(response);
+          } else {
+            reject(response);
+          }
         }, (error) => {
           reject(error);
         });

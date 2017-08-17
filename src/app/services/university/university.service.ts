@@ -18,14 +18,26 @@ export class UniversityService {
     const token: string = localStorage.getItem('torless_token');
     const data: string = JSON.stringify({tag: 'get_university_list', token: token});
 
-    return this._setRequest(data);
+    return new Promise((resolve, reject) => {
+      this._setRequest(data).then((response) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
+    });
   }
 
   public getUniversitybuildings(universityId: number): Promise<any> {
     const token: string = localStorage.getItem('torless_token');
     const data: string = JSON.stringify({tag: 'get_university_building', token: token, unv_id: universityId});
 
-    return this._setRequest(data);
+    return new Promise((resolve, reject) => {
+      this._setRequest(data).then((response) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
+    });
   }
 
   /////
@@ -36,7 +48,11 @@ export class UniversityService {
       this.http.post(this._host, body.toString(), { headers: this._headers })
         .map(response => response.json())
         .subscribe((response) => {
-          resolve(response);
+          if (response.success) {
+            resolve(response);
+          } else {
+            reject(response);
+          }
         }, (error) => {
           reject(error);
         });

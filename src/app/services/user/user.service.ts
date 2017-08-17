@@ -3,7 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { environment } from '../../../environments/environment';
 import 'rxjs/Rx';
 
-import { LoginUser, CreatedUser, CreatedManagerUser } from '../../customClasses';
+import { LoginUser, CreatedUser, CreatedManagerUser } from '../../custom-classes';
 
 @Injectable()
 export class UserService {
@@ -19,44 +19,58 @@ export class UserService {
   public login(user: LoginUser): Promise<any> {
     const data: string = JSON.stringify({'tag': 'login', 'us_log_email': user.us_log_email, 'us_log_pass': user.us_log_pass});
 
-    return this._setRequest(data).then((response) => {
-      localStorage.setItem('torless_token', response.data.token);
-      return response;
-    }, (error) => {
-      return error;
+    return new Promise((resolve, reject) => {
+      this._setRequest(data).then((response) => {
+        localStorage.setItem('torless_token', response.data.token);
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
     });
   }
 
   public registration(createdUser: CreatedUser): Promise<any> {
     const data: string = JSON.stringify({tag: 'registration', user: createdUser.user, company: createdUser.company});
 
-    return this._setRequest(data).then((response) => {
-      return response;
-    }, (error) => {
-      return error;
+    return new Promise((resolve, reject) => {
+      this._setRequest(data).then((response) => {
+        localStorage.setItem('torless_token', response.data.token);
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
     });
+  }
+
+  public isLoggedIn(): boolean {
+    let result: boolean = localStorage.getItem('torless_token') ? true : false;
+    return result;
   }
 
   public registerManagerUser(createdManagerUser: CreatedManagerUser): Promise<any> {
     const _token: string = localStorage.getItem('torless_token');
     const data: string = JSON.stringify({tag: 'register_manager_user', token: _token, manager_user: {mn_name: createdManagerUser.mn_name, mn_last_name: createdManagerUser.mn_last_name, mn_phone: createdManagerUser.mn_phone, mn_email: createdManagerUser.mn_email, mn_pass: createdManagerUser.mn_pass}});
 
-    return this._setRequest(data).then((response) => {
-      return response;
-    }, (error) => {
-      return error;
+    return new Promise((resolve, reject) => {
+      this._setRequest(data).then((response) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
     });
 
   }
 
-  public confirmUser(userKey: string): Promise<any> {
+  public confirmUser(userKey: number): Promise<any> {
     const _token: string = localStorage.getItem('torless_token');
     const data: string = JSON.stringify({tag: 'confirm_user', token: _token, us_key: userKey});
 
-    return this._setRequest(data).then((response) => {
-      return response;
-    }, (error) => {
-      return error;
+    return new Promise((resolve, reject) => {
+      this._setRequest(data).then((response) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
     });
 
   }
@@ -65,11 +79,13 @@ export class UserService {
     const _token: string = localStorage.getItem('torless_token');
     const data: string = JSON.stringify({tag: 'logout', 'token': _token});
 
-    return this._setRequest(data).then((response) => {
-      localStorage.removeItem('torless_token');
-      return response;
-    }, (error) => {
-      return error;
+    return new Promise((resolve, reject) => {
+      this._setRequest(data).then((response) => {
+        localStorage.removeItem('torless_token');
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
     });
 
   }
@@ -77,10 +93,12 @@ export class UserService {
   public checkUserEmail(email: string): Promise<any> {
     const data: string = JSON.stringify({tag: 'check_email', 'ch_mail': email});
 
-    return this._setRequest(data).then((response) => {
-      return response;
-    }, (error) => {
-      return error;
+    return new Promise((resolve, reject) => {
+      this._setRequest(data).then((response) => {
+        resolve(response);
+      }, (error) => {
+        reject(error);
+      });
     });
 
   }
@@ -93,10 +111,14 @@ export class UserService {
       this.http.post(this._host, body.toString(), { headers: this._headers })
         .map(response => response.json())
         .subscribe((response) => {
-        resolve(response);
-      }, (error) => {
-        reject(error);
-      });
+          if (response.success) {
+            resolve(response);
+          } else {
+            reject(response);
+          }
+        }, (error) => {
+          reject(error);
+        });
     });
   }
 

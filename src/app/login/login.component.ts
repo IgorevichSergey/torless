@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {NavigationExtras, Router} from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
-import { LoginUser } from '../customClasses';
+import { LoginUser } from '../custom-classes';
 
 import { UserService } from '../services';
 
@@ -12,7 +12,7 @@ import { UserService } from '../services';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public user: LoginUser = new LoginUser('sergiosy@sergiosy.com', '111111');
+  public user: LoginUser = new LoginUser('torless_1@mailinator.com', 'qwerty123'); //('sergiosy@sergiosy.com', '111111');
   public loginError: boolean = false;
 
   // listOne: Array<string> = ['Coffee', 'Orange Juice', 'Red Wine', 'Unhealty drink!', 'Water'];
@@ -27,10 +27,9 @@ export class LoginComponent implements OnInit {
 
   public login(user: LoginUser): void {
     this.userService.login(user).then((data) => {
-      console.log('success', data)
       this.loginError = false;
+      this._goTo('/cafeteria-list');
     }, (reject) => {
-      console.log('rejected', reject)
       this.loginError = true;
     });
   }

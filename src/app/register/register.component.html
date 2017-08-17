@@ -68,7 +68,7 @@
         </div>
         <div class="input-line required">
           email
-          <input type="text" appInput [(ngModel)]="createdUser.user.us_email" [placeholderMessage]="'אימייל'" [error]="registrationError">
+          <input type="text" appInput [(ngModel)]="createdUser.user.us_email" (blur)="checkEmail(createdUser.user.us_email)" [placeholderMessage]="'אימייל'" [error]="formErrors.emailField" [errorMessage]="formErrorMessages.email" >
         </div>
         <div class="input-line required">
           phone

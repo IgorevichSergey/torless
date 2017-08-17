@@ -3,6 +3,7 @@ body {
   background: #e9e9e9;
   margin: 0;
 }
+textarea,
 input {
   box-sizing:border-box;
   text-align: right;
@@ -39,7 +40,8 @@ button {
   position: absolute;
   top: 7px;
   right: 0;
-  z-index: -1;
+  //z-index: -1;
+  user-select: none;
   font-size: 1rem;
   transition: top 0.2s, font-size 0.2s;
   color: #a2a2a2;
@@ -52,9 +54,10 @@ button {
 .app-input-error-message {
   position: absolute;
   right: 0;
-  z-index: -1;
+  //z-index: -1;
   font-size: 0.8rem;
   color: #ff5b57;
+  user-select: none;
 }
 
 // attributes

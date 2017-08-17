@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: 'input[appInput]'
+  selector: '[appInput]'
 })
 export class InputDirective implements AfterViewInit, OnChanges {
   @Input('placeholderMessage') placeholderMessage: string;
@@ -15,6 +15,8 @@ export class InputDirective implements AfterViewInit, OnChanges {
   @Input('invalid') invalid: boolean;
 
   @Input('ngModel') ngModel: any;
+
+  // todo: add pattern and showing invalid messages
 
 
   private _placeholderElement: any;
@@ -35,12 +37,25 @@ export class InputDirective implements AfterViewInit, OnChanges {
     if(values && values.error && values.error.previousValue && !values.error.currentValue) {
       this._setErrorInputField(false);
     }
+    if(values && values.errorMessage && values.errorMessage.previousValue && values.errorMessage.currentValue !== values.errorMessage.previousValue) {
+      this._removeErrorText();
+      this._addErrorText();
+    }
+    if(values && values.ngModel && values.ngModel.currentValue && values.ngModel.currentValue !== values.ngModel.previousValue && this._placeholderElement) {
+      this.renderer.setElementClass(this._placeholderElement, 'focused', true);
+    }
   }
 
   ngAfterViewInit() {
     this._placeholderElement = this.renderer.createElement(this.elementRef.nativeElement.parentNode, 'div');
     this._placeholderElement.innerHTML = this.placeholderMessage;
     this.renderer.setElementClass(this._placeholderElement, 'app-input-placeholder', true);
+
+    // set focus on input, when click on placeholder
+    this._placeholderElement.addEventListener('click', () => {
+      this.renderer.invokeElementMethod(this.elementRef.nativeElement, 'focus');
+    });
+
     if(this.ngModel) {
       this.renderer.setElementClass(this._placeholderElement, 'focused', true);
     }

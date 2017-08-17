@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { UserService } from '../../services';
 
 @Component({
   selector: 'app-path',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PathComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
+  }
+
+  public logOut() {
+    this.userService.logout();
+    this._goTo('/login');
+  }
+
+  ///
+  private _goTo(url): void {
+    this.router.navigateByUrl(url);
   }
 
 }

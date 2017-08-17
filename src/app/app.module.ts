@@ -14,18 +14,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginModule } from './login/login.module';
 import { RegisterModule } from './register/register.module';
 import { SmsConfirmModule } from './sms-confirm/sms-confirm.module';
-import { CreateBranchModule } from './create-branch/create-branch.module';
-import { BranchActivityModule } from './branch-activity/branch-activity.module';
-import { CafeteriaDetailsModule } from './cafeteria-details/cafeteria-details.module';
+import { CafeteriaListModule } from './cafeteria-list/cafeteria-list.module';
+import { CafeteriaTypeModule } from './cafeteria-type/cafeteria-type.module';
+import { CreateCafeteriaModule } from './create-cafeteria/create-cafeteria.module';
+import { CreateMainCategoryModule } from './create-main-category/create-main-category.module';
+import { ProductListModule } from './product-list/product-list.module';
+import { CategoriesListModule } from './categories-list/categories-list.module';
+import { CreateManagerModule } from './create-manager/create-manager.module';
+import { AddProductModule } from './add-product/add-product.module';
 
 // COMPONENTS
 import { ComponentsModule  } from './components';
 
 // SERVICES
-import { ProductService, CategoryService, CafeteriaService, UserService, UniversityService } from './services';
+import { ProductService, CategoryService, CafeteriaService, UserService, UniversityService, AuthGuardService, TimeSelectService } from './services';
 
 // DIRECTIVES
 import { DirectivesModule } from './directives/index';
+import { CategoriesListComponent } from './categories-list/categories-list.component';
+import { CreateManagerComponent } from './create-manager/create-manager.component';
+import { AddProductComponent } from './add-product/add-product.component';
 
 
 @NgModule({
@@ -39,19 +47,26 @@ import { DirectivesModule } from './directives/index';
     LoginModule,
     RegisterModule,
     SmsConfirmModule,
-    CreateBranchModule,
-    BranchActivityModule,
-    CafeteriaDetailsModule,
+    CafeteriaListModule,
+    CafeteriaTypeModule,
+    CreateCafeteriaModule,
+    CreateMainCategoryModule,
+    ProductListModule,
+    CategoriesListModule,
+    CreateManagerModule,
+    AddProductModule,
     ComponentsModule,
     DirectivesModule,
     HttpModule
   ],
   providers: [
+    AuthGuardService,
     ProductService,
     CategoryService,
     CafeteriaService,
     UserService,
-    UniversityService
+    UniversityService,
+    TimeSelectService
   ],
   bootstrap: [AppComponent]
 })

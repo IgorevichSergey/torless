@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services';
 
 @Component({
   selector: 'app-sms-confirm',
@@ -10,14 +11,20 @@ export class SmsConfirmComponent implements OnInit {
   public confirmError: boolean = false;
   public confirmSuccess: boolean = false;
 
-  constructor() { }
+  constructor(
+    private userService: UserService
+  ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   public confirm(smsCode: number): void {
-    this.confirmError = true;
-    console.log('smsCode', smsCode);
+    this.userService.confirmUser(smsCode).then((data) => {
+      this.confirmError = false;
+      this.confirmSuccess = true;
+    }, (error) => {
+      this.confirmError = true;
+      this.confirmSuccess = false;
+    });
   }
 
 }
